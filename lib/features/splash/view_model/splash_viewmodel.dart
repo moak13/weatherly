@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../../core/utils/router.gr.dart';
 import '../../../locator.dart';
-import '../../home/home_view.dart';
 
 class SplashViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
 
   _moveToHome() {
-    _navigationService.navigateToView(HomeView());
+    _navigationService.navigateTo(Routes.home_view);
   }
 
   handleStartupLogic() async {

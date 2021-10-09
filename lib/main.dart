@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'core/service_ui/setup_bottom_sheet_ui.dart';
-import 'features/splash/splash_view.dart';
+import 'core/utils/router.gr.dart' as route;
 import 'locator.dart';
 
 void main() async {
@@ -35,7 +35,8 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       navigatorKey: StackedService.navigatorKey,
-      home: SplashView(),
+      initialRoute: route.Routes.splash_view,
+      onGenerateRoute: route.Router().onGenerateRoute,
     );
   }
 }

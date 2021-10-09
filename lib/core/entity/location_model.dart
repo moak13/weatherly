@@ -29,14 +29,6 @@ class LocationModel {
     return 'title: $title, locationType: $locationType, woeid: $woeid, lattLong: $lattLong';
   }
 
-  bool isEmpty() {
-    if (title == '') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['title'] = this.title;
