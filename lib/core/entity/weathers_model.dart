@@ -94,22 +94,23 @@ class ConsolidatedWeather {
   double visibility;
   int predictability;
 
-  ConsolidatedWeather(
-      {this.id,
-      this.weatherStateName,
-      this.weatherStateAbbr,
-      this.windDirectionCompass,
-      this.created,
-      this.applicableDate,
-      this.minTemp,
-      this.maxTemp,
-      this.theTemp,
-      this.windSpeed,
-      this.windDirection,
-      this.airPressure,
-      this.humidity,
-      this.visibility,
-      this.predictability});
+  ConsolidatedWeather({
+    this.id,
+    this.weatherStateName,
+    this.weatherStateAbbr,
+    this.windDirectionCompass,
+    this.created,
+    this.applicableDate,
+    this.minTemp,
+    this.maxTemp,
+    this.theTemp,
+    this.windSpeed,
+    this.windDirection,
+    this.airPressure,
+    this.humidity,
+    this.visibility,
+    this.predictability,
+  });
 
   ConsolidatedWeather.fromJson(Map<String, dynamic> json) {
     id = json['id'];
