@@ -13,7 +13,7 @@ class SearchCitySheet extends StatelessWidget {
     final orientation = MediaQuery.of(context).orientation;
     var theme = Theme.of(context);
     return Container(
-      height: orientation == Orientation.portrait ? 450 : 600,
+      height: orientation == Orientation.portrait ? 350 : 500,
       width: double.infinity,
       padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
       decoration: BoxDecoration(
@@ -25,6 +25,7 @@ class SearchCitySheet extends StatelessWidget {
       ),
       alignment: Alignment.center,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             'Search Location',
@@ -48,49 +49,51 @@ class SearchCitySheet extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-          ListView(
-            shrinkWrap: true,
-            children: [
-              TextField(
-                controller: _cityNameController,
-                decoration: InputDecoration(
-                  hintText: 'Search...',
-                  hintStyle: TextStyle(
-                    color: theme.backgroundColor,
-                  ),
-                  fillColor: theme.backgroundColor.withOpacity(0.4),
-                  filled: true,
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              InkWell(
-                onTap: () {
-                  completer(
-                    SheetResponse(
-                      confirmed: true,
-                      responseData: _cityNameController.text.trim(),
+          Expanded(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                TextField(
+                  controller: _cityNameController,
+                  decoration: InputDecoration(
+                    hintText: 'Search...',
+                    hintStyle: TextStyle(
+                      color: theme.backgroundColor,
                     ),
-                  );
-                },
-                child: Container(
+                    fillColor: Colors.blueGrey,
+                    filled: true,
+                  ),
+                ),
+                SizedBox(
                   height: 50,
-                  width: 200,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: theme.backgroundColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    'submit',
-                    style: TextStyle(
-                      color: theme.primaryColor,
+                ),
+                InkWell(
+                  onTap: () {
+                    completer(
+                      SheetResponse(
+                        confirmed: true,
+                        responseData: _cityNameController.text.trim(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 200,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: theme.backgroundColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      'submit',
+                      style: TextStyle(
+                        color: theme.primaryColor,
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ],
       ),

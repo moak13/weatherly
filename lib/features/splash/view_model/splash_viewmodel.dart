@@ -10,7 +10,7 @@ class SplashViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
 
   _moveToHome() {
-    _navigationService.navigateTo(Routes.home_view);
+    _navigationService.clearStackAndShow(Routes.home_view);
   }
 
   handleStartupLogic() async {

@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         accentColor: Colors.white,
         indicatorColor: Colors.white24,
+        appBarTheme: AppBarTheme(color: Colors.black),
       ),
       lightTheme: ThemeData(
         brightness: Brightness.light,
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
         accentColor: Colors.black,
         indicatorColor: Colors.black26,
+        appBarTheme: AppBarTheme(color: Colors.white),
       ),
       builder: (context, regularTheme, darkTheme, themeMode) => MaterialApp(
         title: 'Weatherly',

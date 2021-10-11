@@ -17,16 +17,12 @@ class HomeViewModel extends BaseViewModel {
   final _getWeatherService = locator<GetWeatherService>();
   final _themeService = locator<ThemeService>();
 
-  bool _noData = true;
-
-  /// This is a getter to help us track when to show an initial view
-  bool get noData => _noData;
-
   bool _foundError = false;
 
   /// This getter helps us to know where an error has occured
   bool get foundError => _foundError;
 
+  /// This holds the state of temperature choice of a user
   bool _tempState = false;
   bool get tempState => _tempState;
 
@@ -35,16 +31,18 @@ class HomeViewModel extends BaseViewModel {
   List<ConsolidatedWeather> get resultWeathers => _resultWeather;
 
   /// This helps us to hold asigned weather
-  ConsolidatedWeather _weather;
+  ConsolidatedWeather _weather =
+      ConsolidatedWeather(applicableDate: '${DateTime.now()}');
   ConsolidatedWeather get weather => _weather;
 
   /// This helps to trigger a dialog which is used to perform settings operation like change temperature reading and theme
   triggerSettingsDialog() async {
     final response = await _dialogService.showCustomDialog(
       variant: DialogType.settings,
-      title: 'settings',
+      title: 'Settings',
       description: 'Just testing out',
       customData: _tempState,
+      barrierDismissible: true,
     );
     if (response.confirmed == true) {
       _switchTempReading(response.confirmed);
@@ -57,6 +55,7 @@ class HomeViewModel extends BaseViewModel {
   triggerSearchSheet() async {
     final response = await _sheetService.showCustomSheet(
       variant: BottomSheetType.searchCity,
+      isScrollControlled: true,
     );
     if (response.confirmed == true) {
       _searchCity(cityName: response.responseData);
@@ -71,13 +70,11 @@ class HomeViewModel extends BaseViewModel {
       success: (LocationModel success) {
         if (success.woeid == 0) {
           setBusy(false);
-          _noData = false;
           _foundError = true;
           notifyListeners();
         } else {
-          _getCityWeathers(woeId: success.woeid);
-          _noData = false;
           _foundError = false;
+          _getCityWeathers(woeId: success.woeid);
           notifyListeners();
         }
       },
@@ -124,5 +121,10 @@ class HomeViewModel extends BaseViewModel {
   _switchTempReading(bool value) {
     _tempState = value;
     notifyListeners();
+  }
+
+  /// This function helps us get a default weather details on init
+  fetchOnInit() {
+    _searchCity(cityName: 'lagos');
   }
 }

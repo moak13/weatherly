@@ -32,7 +32,9 @@ class WeatherCard extends StatelessWidget {
             : const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isSelected ? theme.primaryColor : theme.backgroundColor,
+          color: isSelected
+              ? theme.primaryColor.withOpacity(0.7)
+              : theme.backgroundColor,
           borderRadius: BorderRadius.circular(5),
           boxShadow: [
             isSelected
@@ -54,7 +56,7 @@ class WeatherCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Hello',
+              day,
               style: TextStyle(
                 color: isSelected ? theme.backgroundColor : theme.primaryColor,
               ),
