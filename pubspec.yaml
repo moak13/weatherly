@@ -32,6 +32,7 @@ dependencies:
   freezed: ^0.12.7
   stacked: ^1.9.5
   stacked_services: ^0.7.2
+  stacked_themes: ^0.2.2+2
   get_it: ^5.0.6
   flutter_speed_dial: ^2.1.1
 

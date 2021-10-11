@@ -15,7 +15,6 @@ class LocationModel {
         lattLong: '',
       );
     final jsonData = json.first as Map<String, dynamic>;
-    print('Json: $jsonData');
     return LocationModel(
       title: jsonData['title'],
       locationType: jsonData['location_type'],

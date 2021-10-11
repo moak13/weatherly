@@ -3,6 +3,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 import 'package:intl/intl.dart';
+import 'package:weatherly/core/utils/helper_functions.dart';
 
 import '../../../locator.dart';
 import '../view_model/home_viewmodel.dart';
@@ -13,22 +14,39 @@ class HomeLandscapeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return ViewModelBuilder<HomeViewModel>.reactive(
       disposeViewModel: false,
       builder: (context, model, child) {
         return Scaffold(
+          backgroundColor: theme.backgroundColor,
           body: SafeArea(
             child: model.isBusy
-                ? Center(child: CircularProgressIndicator())
+                ? Center(
+                    child: CircularProgressIndicator(
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(theme.accentColor),
+                    ),
+                  )
                 : model.noData
                     ? Center(
-                        child: Text('Initial'),
+                        child: Text(
+                          'Initial',
+                          style: TextStyle(
+                            color: theme.primaryColor,
+                          ),
+                        ),
                       )
                     : Container(
                         height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
                         child: model.foundError
-                            ? Text('Error')
+                            ? Text(
+                                'Error',
+                                style: TextStyle(
+                                  color: theme.primaryColor,
+                                ),
+                              )
                             : Stack(
                                 children: [
                                   Row(
@@ -73,7 +91,12 @@ class HomeLandscapeView extends StatelessWidget {
                                                     width: 15,
                                                   ),
                                                   Text(
-                                                    '${model.weather.theTemp} C',
+                                                    HelperFunctions
+                                                        .cOrFConverter(
+                                                      value: model.tempState,
+                                                      temp:
+                                                          model.weather.theTemp,
+                                                    ),
                                                     style: TextStyle(
                                                       fontSize: 30,
                                                       fontWeight:
@@ -126,6 +149,16 @@ class HomeLandscapeView extends StatelessWidget {
                                               iconName: model
                                                   .resultWeathers[index]
                                                   .weatherStateAbbr,
+                                              minTemp:
+                                                  HelperFunctions.cOrFConverter(
+                                                value: model.tempState,
+                                                temp: model.weather.minTemp,
+                                              ),
+                                              maxTemp:
+                                                  HelperFunctions.cOrFConverter(
+                                                value: model.tempState,
+                                                temp: model.weather.maxTemp,
+                                              ),
                                             );
                                           },
                                         ),
@@ -150,8 +183,8 @@ class HomeLandscapeView extends StatelessWidget {
           ),
           floatingActionButton: SpeedDial(
             animatedIcon: AnimatedIcons.menu_close,
-            animatedIconTheme: IconThemeData(color: Colors.white),
-            backgroundColor: Colors.black,
+            animatedIconTheme: IconThemeData(color: theme.backgroundColor),
+            backgroundColor: theme.primaryColor,
             overlayColor: Colors.white,
             overlayOpacity: 0.4,
             children: [
@@ -169,6 +202,14 @@ class HomeLandscapeView extends StatelessWidget {
                 ),
                 onTap: () {
                   model.triggerSettingsDialog();
+                },
+              ),
+              SpeedDialChild(
+                child: Icon(
+                  Icons.switch_left,
+                ),
+                onTap: () {
+                  model.switchTheme();
                 },
               )
             ],

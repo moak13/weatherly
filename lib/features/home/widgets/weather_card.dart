@@ -21,6 +21,7 @@ class WeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
+    var theme = Theme.of(context);
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -31,8 +32,23 @@ class WeatherCard extends StatelessWidget {
             : const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isSelected ? Colors.black : Colors.white,
+          color: isSelected ? theme.primaryColor : theme.backgroundColor,
           borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            isSelected
+                ? BoxShadow(
+                    color: theme.backgroundColor.withOpacity(0.9),
+                    spreadRadius: -15,
+                    blurRadius: 15.0,
+                    offset: Offset(1, 20),
+                  )
+                : BoxShadow(
+                    color: theme.primaryColor.withOpacity(0.9),
+                    spreadRadius: -15,
+                    blurRadius: 15.0,
+                    offset: Offset(1, 20),
+                  ),
+          ],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -40,7 +56,7 @@ class WeatherCard extends StatelessWidget {
             Text(
               'Hello',
               style: TextStyle(
-                color: isSelected ? Colors.white : Colors.black,
+                color: isSelected ? theme.backgroundColor : theme.primaryColor,
               ),
             ),
             SizedBox(
@@ -63,9 +79,9 @@ class WeatherCard extends StatelessWidget {
               height: 5,
             ),
             Text(
-              'Hi',
+              '$minTemp / $maxTemp',
               style: TextStyle(
-                color: isSelected ? Colors.white : Colors.black,
+                color: isSelected ? theme.backgroundColor : theme.primaryColor,
               ),
             ),
           ],
